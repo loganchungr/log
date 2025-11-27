@@ -1,2 +1,0 @@
-# loganchungr.github.io
-home
