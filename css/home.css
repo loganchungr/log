@@ -121,7 +121,6 @@ header {
 /* Notebook subsections */
 section {
     display: flex;
-    flex-flow: row wrap;
     overflow-x: scroll;
     align-items: flex-start;
     gap: 10px;
