@@ -2,22 +2,105 @@
 
 
 /* Title and subheader styles */
+/* Border box sizing fix */
+*, *:before, *:after { box-sizing: border-box; }
+
+/* Some global style resets */
+
+*, *:before, *:after { box-sizing: border-box; }
+body {
+    margin: 0;
+    background-color: #fffbfa;
+}
+
+/* Globals */
+h1, h2, h3, h4, p, ol, ul, li, a, figure, p:last-child, ul:last-child, ol:last-child {
+    font-family:'Courier New', monospace;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    overflow-wrap: anywhere;   /* modern, nice */
+    word-break: break-word;
+}
+
+/*
+ a:hover {
+    border:2px dashed #ff948f;
+    transform: scale(1.05);
+}
+ */
+
 h1 {
-    color: var(--pencil);
-    font-size: 36px;
+    font-size: 150%;
 }
+
 h2 {
-    color: var(--pencil);
-    font-size: 24px;
-    margin: 20px 0;
+    font-size: 125%;
 }
-hr {
-    border: 0;
-    border-bottom: 4px solid #fff;
-    margin: 20px 0;
+
+h1, h2, h3, h4 {
+    margin-bottom: .3em;
+}
+
+p .section-description {
+    background: #fffbfa;
+    border: 1px solid #969696;
+    border-radius: 5px;
+    padding: 8px;
+}
+
+ul, ol {
+    position: relative;
+    list-style: none;
+    margin-left: 0;
+    padding-left:.5em;
+}
+
+li:before {
+    content: "»";
+    position: absolute;
+    left: 0;
+/*   padding-left: .5em;
+    display: block;
+    float: left;
+    width: 1.2em;
+    color: #000; */
+}
+
+
+li {
+    list-style-position: inside;
+    padding-left: 1em;
+}
+
+
+p, ul, ol {
+    margin-bottom: 1em;
+    line-height: 1.3;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+header, section, aside, footer {
+    padding: 8px;
+    border: none;
+    border-radius: 10px;
+    background: #fffbfa;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;  /* desktop: avatar aligns with top of text */
+    gap: 10px;
+    border-top: none;
 }
 
 /* The status note at the top of the home page */
+
 #status {
     width: 100%;
     max-width: 500px;
@@ -42,6 +125,7 @@ section {
     align-items: flex-start;
     gap: 20px;
 }
+
 section a {
     position: relative;
     display: flex;
@@ -121,13 +205,139 @@ section a:hover::before {
     border-color: #c6c6c6;
 }
 
-/* Mobile */
-@media(max-width: 600px) {
-    section a::before {
-        width: 90px;
-        height: 90px;
+
+/* ===== LOG LAYOUT: board + side viewer ===== */
+
+/* mobile-first: one column */
+.log-layout {
+    display: block;
+}
+
+.log-right {
+    display: none; /* viewer hidden by default on small screens */
+}
+
+/* viewer box */
+.log-viewer {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    max-height: calc(100vh - 80px);
+    overflow: auto;
+}
+
+.log-viewer-placeholder {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    margin-bottom: 0.75rem;
+}
+
+/* entries inside viewer */
+.log-viewer #meta {
+    display: flex;
+    font-size: 12px;
+    margin-bottom: 12px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.log-viewer #tags {
+    display: flex;
+    gap: 12px;
+    text-align: center;
+}
+
+.log-viewer #meta time {
+    margin-left: auto;
+}
+
+.log-viewer article {
+    background-color: var(--note);
+    color: var(--cursor);
+    border-radius: 20px;
+    padding: 20px;
+    max-width: none;
+}
+
+.log-viewer article h1 {
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+.log-viewer article p {
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+/* desktop-ish: ≥ 600px gets two columns + viewer */
+@media (min-width: 600px) {
+    .log-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+        column-gap: 32px;
+        align-items: flex-start;
     }
-    .favorite::after {
-        top: 70px;
+
+    .log-right {
+        display: block;
+    }
+
+    .log-viewer {
+        position: sticky;
+        top: 40px;
+    }
+
+    .log-layout.log-has-selection .log-viewer-placeholder {
+        display: none;
     }
 }
+
+
+/* desktop: split into two columns and show viewer */
+@media (min-width: 900px) {
+    .log-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+        column-gap: 32px;
+        align-items: flex-start;
+    }
+
+    .log-right {
+        display: block;
+    }
+
+    .log-viewer {
+        position: sticky;
+        top: 40px;
+    }
+
+    .log-layout.log-has-selection .log-viewer-placeholder {
+        display: none;
+    }
+}
+
+
+
+/* Mobile */
+@media (min-width: 600px) {
+    .log-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+        column-gap: 32px;
+        align-items: flex-start;
+    }
+
+    .log-right {
+        display: block;
+    }
+
+    .log-viewer {
+        position: sticky;
+        top: 40px;
+    }
+
+    .log-layout.log-has-selection .log-viewer-placeholder {
+        display: none;
+    }
+}
+
