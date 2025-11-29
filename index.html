@@ -4,52 +4,179 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>(b)Loggin Chung</title>
-
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.svg">
-
     <!-- CSS -->
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/home.css">
 </head>
 <body>
-    <main>
-            <h1>logbook</h1>
-        
-            <div id="status">
-                <p><a href="https://loganchungr.github.io">Home</a></p>
-            </div>
-        
-            <br><br><br>
-        
-            <h2>writing</h2>
-        
-            <section>
-                <a href="entries/poem.html" class="favorite">poem</a>
-                <a href="entries/moon.html">moon</a>
-                <a href="entries/resting-note.html" class="fold favorite">resting note</a>
-                <a href="entries/exploring-the-vastness-of-a-website.html">exploring the vastness of a website</a>
-            </section>
-        
-            <br><br>
-        
-            <h2>recipes</h2>
-        
-            <section>
-                <a href="recipes/marks-savory-oats.html" class="jacaranda favorite">mark's savory oats</a>
-                <a href="recipes/mock-egg-salad.html">mock egg salad</a>
-                <a href="recipes/banana-bread.html" class="favorite emo">banana bread</a>
-            </section>
-        
-            <br><br>
-        
-            <h2>other</h2>
-        
-            <section>
-                <a href="about.html" class="about">about</a>
-                <a href="contact.html" class="emo favorite">contact</a>
-            </section>
-    </main>
+  <main class="log-layout">
+    <!-- LEFT: existing sticky board -->
+    <div class="log-left">
+      <h2>latest</h2>
+      <section>
+        <a href="entries/poem.html" class="favorite">poem</a>
+        <a href="entries/moon.html">moon</a>
+        <a href="entries/resting-note.html" class="fold favorite">resting note</a>
+        <a href="entries/exploring-the-vastness-of-a-website.html">
+          exploring the vastness of a website
+        </a>
+      </section>
+
+      <br><br>
+
+      <h2>instagram</h2>
+      <section>
+        <a href="recipes/marks-savory-oats.html" class="jacaranda favorite">
+          mark's savory oats
+        </a>
+        <a href="recipes/mock-egg-salad.html">mock egg salad</a>
+        <a href="recipes/banana-bread.html" class="favorite emo">banana bread</a>
+      </section>
+
+      <br><br>
+
+      <h3>search</h3>
+      <h4>by tag:</h4>
+      <p>search bar goes here</p>
+
+      <section>
+        <a href="about.html" class="about">about</a>
+        <a href="contact.html" class="emo favorite">contact</a>
+      </section>
+    </div>
+
+    <!-- RIGHT: viewer -->
+    <aside class="log-right" aria-label="Log entry viewer">
+      <div id="log-viewer" class="log-viewer">
+        <p class="log-viewer-placeholder">
+          Click a note on the left to read it here on larger screens.
+        </p>
+      </div>
+    </aside>
+  </main>
+
+  <!-- script goes just before </body> -->
+  <script>
+  (function () {
+    const layout = document.querySelector('.log-layout');
+    const viewer = document.getElementById('log-viewer');
+
+    if (!layout || !viewer) return;
+
+    const mq = window.matchMedia('(min-width: 600px)');
+    const links = layout.querySelectorAll('.log-left section a[href]');
+
+    function handleClick(e) {
+      const href = this.getAttribute('href');
+      if (!href) return;
+
+      // On small screens: just behave normally (navigate)
+      if (!mq.matches) {
+        return;
+      }
+
+      // On larger screens: intercept and load into viewer
+      e.preventDefault();
+
+      fetch(href)
+        .then(res => {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.text();
+        })
+        .then(html => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+
+          const meta = doc.querySelector('#meta');
+          const article = doc.querySelector('article');
+
+          let inner = '';
+          if (meta) inner += meta.outerHTML;
+          if (article) inner += article.outerHTML;
+
+          if (!inner) {
+            inner = '<p>Could not load that entry.</p>';
+          }
+
+          viewer.innerHTML = inner;
+          layout.classList.add('log-has-selection');
+          viewer.scrollTop = 0;
+        })
+        .catch(err => {
+          console.error('Error loading log entry:', err);
+          // fallback: if something blows up, just navigate
+          window.location.href = href;
+        });
+    }
+
+    links.forEach(link => {
+      link.addEventListener('click', handleClick);
+    });
+  })();
+  </script>
 </body>
+
+
+<script>
+(function () {
+  const layout = document.querySelector('.log-layout');
+  const viewer = document.getElementById('log-viewer');
+
+  if (!layout || !viewer) return;
+
+  const mediaQuery = window.matchMedia('(min-width: 600px)');
+  const links = layout.querySelectorAll('section a[href]');
+
+  function handleClick(event) {
+    const href = this.getAttribute('href');
+    if (!href) return;
+
+    // On small screens, behave normally (navigate to entry page)
+    if (!mediaQuery.matches) {
+      return;
+    }
+
+    // Large screens: load into viewer instead
+    event.preventDefault();
+
+    fetch(href)
+      .then(response => {
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        return response.text();
+      })
+      .then(html => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+
+        // Try to get meta + article from the entry page
+        const meta = doc.querySelector('#meta');
+        const article = doc.querySelector('article');
+
+        let inner = '';
+        if (meta) inner += meta.outerHTML;
+        if (article) inner += article.outerHTML;
+
+        if (!inner) {
+          inner = '<p>Could not load that entry.</p>';
+        }
+
+        viewer.innerHTML = inner;
+        layout.classList.add('log-has-selection');
+        viewer.scrollTop = 0;
+      })
+      .catch(err => {
+        console.error('Error loading log entry:', err);
+        // Fallback: if something goes wrong, just navigate normally
+        window.location.href = href;
+      });
+  }
+
+  links.forEach(link => {
+    link.addEventListener('click', handleClick);
+  });
+})();
+</script>
+
 </html>
