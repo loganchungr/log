@@ -1,5 +1,5 @@
 ## **2025-11-28 (Black Friday)**
-# **on *The Last Waltz***  {#on-the-last-waltz}
+# **on *The Last Waltz***
 Tags: music
 
 In honor of Hanif, I'll go ahead and try to write about it, The Night They Drove The Sixties Down. The Sixties haunts this entire evening, though it’s so firmly steeped in the culture and air of the Seventies (of course Scorsese captures it, then), but of course, what are the Seventies without the curdled ghosts of the Sixties? Great songwriters and musicians, something of a community at least, caught in time and suddenly finding themselves several steps down the line from the *essentiality* of the countercultural heyday. 
@@ -8,18 +8,20 @@ One gets the sense they recognize this, that this entire night is a way of capst
 
 Almost exactly halfway through there’s a scene with Levon and Robbie talking about being excited to stay at the "Times Square Hotel," getting their "asses kicked" by New York, and then coming back again and again because of their love and respect for the Tin Pan Alley songwriters. Robbie says:
 
-*"It wasn't a fair thing; the songwriter was the low man on the totem pole. But then, here come the Sixties — with change and revolution, war and assassinations — and these songwriters were expressing the feelings of people on the street. In a way, it was kind of the beginning of the end of Tin Pan Alley."* 
+>*"It wasn't a fair thing; the songwriter was the low man on the totem pole. But then, here come the Sixties — with change and revolution, war and assassinations — and these songwriters were expressing the feelings of people on the street. In a way, it was kind of the beginning of the end of Tin Pan Alley."* 
 
 Then there’s a hard cut to Neil Diamond (a Tin Pan Alley writer) singing his "Dry Your Eyes," a plodding drudgery of a piece of music, one of my least favorite moments of the film, to be honest, but it's a song about songs and their utility beyond the longevity of their vehicular performer: 
 
-*Dry your eyes, take your song out*   
-*When it's a newborn afternoon*  
-*And if you can't recall the singer*  
-*Can you still recall the tune?* 
+>*Dry your eyes, take your song out*   
+>*When it's a newborn afternoon*  
+>*And if you can't recall the singer*  
+>*Can you still recall the tune?* 
 
 Drab as it is, the song’s inclusion, and the preceding dialogue, is essential to understanding what this film is documenting, even if “Dry Your Eyes” feels more like a rhetorical device than a musical or aesthetically pleasing sequencing decision, especially coming off the impossible heights of “The Night They Drove Old Dixie Down,” which is the one of the great songs of all time, and one which people will certainly be singing and adapting long after these singers’ names have been lost into history. 
 
 [The Band - The Night They Drove Old Dixie Down](https://www.youtube.com/watch?v=jREUrbGGrgM) 
+
+<center><iframe src="https://www.youtube.com/embed/jREUrbGGrgM?si=39iE5XZME2ZakbpS"></iframe></center>
 
 “The Night They Drove Old Dixie Down,” of course, is the culmination of the culmination, the raison d'etre for the entirety of the folk rock movement, if not rock and pop songwriting more generally. It combines the epic and the personal, allowing each to inhabit the other, as great art does, but which songs are ill-disposed to do. A song for ghosts with grief of all origins. I’ve seen this song *do things* to people, unexplainable things. 
 
