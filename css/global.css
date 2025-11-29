@@ -12,6 +12,7 @@
     --flowers: #3d0b56;
     --offwhite: #fffbfa;
     --note: lemonchiffon;
+    --coral; #ff948f;
 }
 
 /* Border box sizing fix */
@@ -23,7 +24,7 @@ body {
   margin: 0;
   font-family: 'Courier New';
   color: var(--);
-  background-color: var(--offwhite);
+  background-color: var(--coral);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; 
   -webkit-text-size-adjust: none; 
