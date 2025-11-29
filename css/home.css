@@ -10,7 +10,7 @@
 *, *:before, *:after { box-sizing: border-box; }
 body {
     margin: 0;
-    background-color: var(--coral);
+    background-color: #ff948f;
 }
 
 /* Globals */
@@ -43,7 +43,7 @@ h1, h2, h3, h4 {
 }
 
 p .section-description {
-    background: #fffbfa;
+    background-color: #ff948f;
     border: 1px solid #969696;
     border-radius: 5px;
     padding: 8px;
@@ -106,7 +106,7 @@ header {
     max-width: 500px;
     height: 110px;
     color: gray;
-    background-color: #fff;
+    background-color: #ff948f;
     /* transform: rotate(4deg); */
     border-radius: 10px;
     padding: 10px;
@@ -219,7 +219,7 @@ section a:hover::before {
 
 /* viewer box */
 .log-viewer {
-    background-color: #fff;
+    background-color: #fffbfa;
     border-radius: 20px;
     padding: 16px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.06);
@@ -252,10 +252,10 @@ section a:hover::before {
 }
 
 .log-viewer article {
-    background-color: var(--note);
+    background-color: #fffbfa;
     color: var(--cursor);
-    border-radius: 20px;
-    padding: 20px;
+    border-radius: 5px;
+    padding: 8px;
     max-width: none;
 }
 
@@ -269,61 +269,12 @@ section a:hover::before {
     line-height: 1.4;
 }
 
-/* desktop-ish: ≥ 600px gets two columns + viewer */
-@media (min-width: 600px) {
-    .log-layout {
-        display: grid;
-        grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
-        column-gap: 32px;
-        align-items: flex-start;
-    }
-
-    .log-right {
-        display: block;
-    }
-
-    .log-viewer {
-        position: sticky;
-        top: 40px;
-    }
-
-    .log-layout.log-has-selection .log-viewer-placeholder {
-        display: none;
-    }
-}
-
-
-/* desktop: split into two columns and show viewer */
-@media (min-width: 900px) {
-    .log-layout {
-        display: grid;
-        grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
-        column-gap: 32px;
-        align-items: flex-start;
-    }
-
-    .log-right {
-        display: block;
-    }
-
-    .log-viewer {
-        position: sticky;
-        top: 40px;
-    }
-
-    .log-layout.log-has-selection .log-viewer-placeholder {
-        display: none;
-    }
-}
-
-
-
 /* Mobile */
 @media (min-width: 600px) {
     .log-layout {
         display: grid;
-        grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
-        column-gap: 32px;
+        grid-template-columns: minmax(0, 250px) minmax(0, 1fr);
+        column-gap: 10px;
         align-items: flex-start;
     }
 
