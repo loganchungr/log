@@ -1,6 +1,6 @@
 ## **2025-11-28 (Black Friday)**
-
 # **on *The Last Waltz***  {#on-the-last-waltz}
+Tags: music
 
 In honor of Hanif, I'll go ahead and try to write about it, The Night They Drove The Sixties Down. The Sixties haunts this entire evening, though it’s so firmly steeped in the culture and air of the Seventies (of course Scorsese captures it, then), but of course, what are the Seventies without the curdled ghosts of the Sixties? Great songwriters and musicians, something of a community at least, caught in time and suddenly finding themselves several steps down the line from the *essentiality* of the countercultural heyday. 
 
