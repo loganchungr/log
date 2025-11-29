@@ -58,125 +58,135 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <!-- Layout activator -->
-  <script>
-  (function () {
+
+    <script>
+     const mq = window.matchMedia('(min-width: 600px)');
+    const links = document.querySelectorAll('.log-left section a[href]');
     const layout = document.querySelector('.log-layout');
     const viewer = document.getElementById('log-viewer');
-
-    if (!layout || !viewer) return;
-
-    const mq = window.matchMedia('(min-width: 600px)');
-    const links = layout.querySelectorAll('.log-left section a[href]');
-
+    
     function handleClick(e) {
       const href = this.getAttribute('href');
       if (!href) return;
-
-      // On small screens: just behave normally (navigate)
-      if (!mq.matches) {
-        return;
-      }
-
-      // On larger screens: intercept and load into viewer
+    
+      // Small screens: behave as usual
+      if (!mq.matches) return;
+    
       e.preventDefault();
-
+    
+      if (href.endsWith('.md')) {
+        loadMarkdownEntry(href);
+      } else {
+        loadHtmlEntry(href); // your current behavior
+      }
+    }
+    
+    links.forEach(link => link.addEventListener('click', handleClick));
+    
+        function loadMarkdownEntry(href) {
       fetch(href)
         .then(res => {
           if (!res.ok) throw new Error('HTTP ' + res.status);
           return res.text();
         })
-        .then(html => {
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, 'text/html');
-
-          const meta = doc.querySelector('#meta');
-          const article = doc.querySelector('article');
-
-          let inner = '';
-          if (meta) inner += meta.outerHTML;
-          if (article) inner += article.outerHTML;
-
-          if (!inner) {
-            inner = '<p>Could not load that entry.</p>';
+        .then(md => {
+          if (typeof marked === 'undefined') {
+            throw new Error('marked.js not loaded');
           }
-
-          viewer.innerHTML = inner;
+    
+          const { dateText, isoDate, title, tags, body } = parseMarkdownEntry(md);
+          const bodyHtml = marked.parse(body);
+    
+          // Build tags HTML
+          const tagsHtml = tags.length
+            ? `<div id="tags">${tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>`
+            : '';
+    
+          const metaHtml = `
+            <div id="meta">
+              ${tagsHtml}
+              ${isoDate ? `<time datetime="${isoDate}">${dateText}</time>` : dateText}
+            </div>
+          `;
+    
+          const articleHtml = `
+            <article>
+              ${title ? `<h1>${title}</h1>` : ''}
+              ${bodyHtml}
+            </article>
+          `;
+    
+          viewer.innerHTML = metaHtml + articleHtml;
           layout.classList.add('log-has-selection');
           viewer.scrollTop = 0;
         })
         .catch(err => {
-          console.error('Error loading log entry:', err);
-          // fallback: if something blows up, just navigate
+          console.error('Error loading markdown entry:', err);
+          // Fallback: just navigate to the raw file if something breaks
           window.location.href = href;
         });
     }
-
-    links.forEach(link => {
-      link.addEventListener('click', handleClick);
-    });
-  })();
-  </script>
-</body>
-
-
-<script>
-(function () {
-  const layout = document.querySelector('.log-layout');
-  const viewer = document.getElementById('log-viewer');
-
-  if (!layout || !viewer) return;
-
-  const mediaQuery = window.matchMedia('(min-width: 600px)');
-  const links = layout.querySelectorAll('section a[href]');
-
-  function handleClick(event) {
-    const href = this.getAttribute('href');
-    if (!href) return;
-
-    // On small screens, behave normally (navigate to entry page)
-    if (!mediaQuery.matches) {
-      return;
+    
+        function parseMarkdownEntry(mdText) {
+      const lines = mdText.split('\n');
+    
+      let dateText = '';
+      let isoDate = '';
+      let title = '';
+      let tags = [];
+      let bodyStartIndex = 0;
+    
+      // 1) First non-empty line: ### **yyyy-mm-dd**
+      let i = 0;
+      while (i < lines.length && !lines[i].trim()) i++;
+      if (i < lines.length) {
+        const line = lines[i].trim();
+        // Strip Markdown decoration and pull out the date label
+        // e.g. "### **2025-11-28**"
+        const dateLabel = line
+          .replace(/^#+\s*/, '')      // remove leading ### / #
+          .replace(/^\*\*/, '')       // remove starting **
+          .replace(/\*\*$/, '')       // remove ending **
+          .trim();
+        dateText = dateLabel;
+    
+        // Try to extract ISO date (yyyy-mm-dd) from that line
+        const m = dateLabel.match(/(\d{4}-\d{2}-\d{2})/);
+        if (m) isoDate = m[1];
+    
+        i++;
+      }
+    
+      // 2) Next non-empty line: # **title**
+      while (i < lines.length && !lines[i].trim()) i++;
+      if (i < lines.length) {
+        const line = lines[i].trim();
+        const titleLabel = line
+          .replace(/^#+\s*/, '')
+          .replace(/^\*\*/, '')
+          .replace(/\*\*$/, '')
+          .trim();
+        title = titleLabel;
+        i++;
+      }
+    
+      // 3) Next non-empty line starting with "Tags:"
+      while (i < lines.length && !lines[i].trim()) i++;
+      if (i < lines.length) {
+        const line = lines[i].trim();
+        if (/^tags:/i.test(line)) {
+          const tagPart = line.replace(/^tags:/i, '').trim();
+          tags = tagPart.split(',').map(t => t.trim()).filter(Boolean);
+          i++;
+        }
+      }
+    
+      // 4) Body is everything after that
+      const body = lines.slice(i).join('\n').trim();
+    
+      return { dateText, isoDate, title, tags, body };
     }
 
-    // Large screens: load into viewer instead
-    event.preventDefault();
-
-    fetch(href)
-      .then(response => {
-        if (!response.ok) throw new Error('HTTP ' + response.status);
-        return response.text();
-      })
-      .then(html => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-
-        // Try to get meta + article from the entry page
-        const meta = doc.querySelector('#meta');
-        const article = doc.querySelector('article');
-
-        let inner = '';
-        if (meta) inner += meta.outerHTML;
-        if (article) inner += article.outerHTML;
-
-        if (!inner) {
-          inner = '<p>Could not load that entry.</p>';
-        }
-
-        viewer.innerHTML = inner;
-        layout.classList.add('log-has-selection');
-        viewer.scrollTop = 0;
-      })
-      .catch(err => {
-        console.error('Error loading log entry:', err);
-        // Fallback: if something goes wrong, just navigate normally
-        window.location.href = href;
-      });
-  }
-
-  links.forEach(link => {
-    link.addEventListener('click', handleClick);
-  });
-})();
 </script>
 
 </html>
