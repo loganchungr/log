@@ -17,14 +17,14 @@
     <div class="log-left">
       <h2>latest...</h2>
       <section>
-        <a href="entries/2025-11-28 on the last waltz.md">on <i>the last waltz</i></a>
-        <a href="entries/moon.html">moon</a>
-        <a href="entries/resting-note.html" class="fold favorite">resting note</a>
-        <a href="entries/exploring-the-vastness-of-a-website.html">
-          exploring the vastness of a website
-        </a>
+           <a href="https://docs.google.com/document/d/e/2PACX-1vTg-E3XKhMBhGA8TvOX9FcvC6mP3L07baJHwcVRWmUkf_8PfTva-crXHtNs5tB7VDzdhtCDLdXk4iax/pub?embedded=true">on <i>the last waltz</i></a>
+           <a href="https://docs.google.com/document/d/e/2PACX-1vSt__cUVVW8P_jlq1W13lVAbfMYDKc_DWuiuRGTanc_eL8480ZrbZktPgDsoWp9JFUcxq4-uoTDss49/pub?embedded=true">after even more DFW</a>
+           <a href="https://docs.google.com/document/d/e/2PACX-1vRgLYmGuL9DZ6Mxu9GeT2lVFSIHuoAtcXGHWdrPZW7bfX_IqZIniG90vILf_juoO1XAOMKIwWWlnbzn/pub?embedded=true">after "Good Old Neon"</a>
+           <a href="https://docs.google.com/document/d/e/2PACX-1vQVfXQKc3vho4kn6BGX8xlwUPzE07COdKeHooTCSinJ2s6UzAAnGMNL1YSyjJEJB4nw8fIIVQdP7V8L/pub?embedded=true">on <i>Voices in the Evening</i></a>
+           <a href="https://docs.google.com/document/d/e/2PACX-1vR9fEn3pWmpIuoUq8Tf6MATVGNbwhvgJ23cTLrye41qJURLl743D3Za8hNFxvxsOOQcPJlfNAbGHaD4/pub?embedded=true">on <i>Train Dreams</i></a>
+           <a href="https://docs.google.com/document/d/e/2PACX-1vRoDhyXsH2OdNRQIQ_n2rmDaTo_1pfYmFXJJRlyx00RwSEdNTckA5GdYixyEzsBuBc0KNy9rBbSD27s/pub?embedded=true">on <i>The Sluts</i></a>
+      <!-- <a href="GOOGLEDOCSURL">TITLEOFPOST</a> -->
       </section>
-
       
     <p><em>Thanks for visiting ♡</em></p>
     
@@ -33,7 +33,15 @@
     <!-- RIGHT: viewer -->
     <aside class="log-right" aria-label="Log entry viewer">
       <div id="log-viewer" class="log-viewer">
-        <p class="log-viewer-placeholder" contenteditable="true">Click an entry... or scribble yourself!</p>
+        <p class="log-viewer-placeholder" contenteditable="true">Click an entry... or scribble something yourself!</p>
+           <iframe
+              id="log-iframe"
+              title="Log entry"
+              height="100%"
+              width="100%"
+              style="border:none"
+              src=""
+            ></iframe>
       </div>
     </aside>
   </main>
@@ -41,6 +49,34 @@
 
 <!-- JS ZONE JS ZONE -->
 
+<script>
+  const mq = window.matchMedia('(min-width: 600px)');
+  const links = document.querySelectorAll('.log-left section a[href]');
+  const layout = document.querySelector('.log-layout');
+  const viewer = document.getElementById('log-viewer');
+  const iframe = document.getElementById('log-iframe');
+  const placeholder = viewer.querySelector('.log-viewer-placeholder');
+
+  function handleClick(e) {
+    const href = this.getAttribute('href');
+    if (!href) return;
+
+    // On small screens: just behave like a normal link (open the doc)
+    if (!mq.matches) return;
+
+    // On desktop: load into the iframe instead
+    e.preventDefault();
+
+    if (placeholder) {
+      placeholder.style.display = 'none';
+    }
+
+    iframe.src = href;
+    layout.classList.add('log-has-selection');
+  }
+
+  links.forEach(link => link.addEventListener('click', handleClick));
+</script>
 
 
 </html>
