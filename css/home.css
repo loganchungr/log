@@ -259,11 +259,12 @@ section a:hover::before {
 }
 
 .log-viewer article h1 {
-    font-size: 20px;
-    margin-bottom: 12px;
+    font-size: 15px;
+    margin-bottom: .3em;
 }
 
 .log-viewer article p {
+    font-size: 10px;
     line-height: 1.4;
 }
 
