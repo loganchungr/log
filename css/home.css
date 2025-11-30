@@ -84,9 +84,6 @@ img {
 }
 
 header, section, aside, footer {
-    padding: 1px;
-    border: none;
-    border-radius: 10px;
     background-color: #ff948f;
 }
 
