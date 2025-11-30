@@ -84,7 +84,7 @@ img {
 }
 
 header, section, aside, footer {
-    padding: 8px;
+    padding: 1px;
     border: none;
     border-radius: 10px;
     background-color: #ff948f;
@@ -215,7 +215,7 @@ section a {
 /* show viewer on mobile too (below the bar) */
 .log-right {
     display: block;
-    margin-top: 12px;
+    margin-top: 0px;
 }
 
 /* viewer box */
@@ -296,7 +296,7 @@ section a {
     position: sticky;
     top: 0;
     z-index: 5;
-    padding: 10px 10px 6px;
+    padding: 0;
     background-color: #ff948f;
   }
 
@@ -312,7 +312,7 @@ section a {
     overflow-x: auto;
     overflow-y: hidden;
     gap: 10px;
-    padding-bottom: 4px;
+    padding-bottom: 0;
     -webkit-overflow-scrolling: touch;
   }
 
