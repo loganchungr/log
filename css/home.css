@@ -173,34 +173,40 @@ section a {
 }
 
 /* Entry icon palettes */
-/* Tag → color mapping for log note icons */
+/* default for any note with no tag-* class */
+.log-left section a {
+    --tag-color: var(--tag-writing); /* or whichever you want as fallback */
+}
+
+/* Tag → color mapping using global vars */
 .log-left section a.tag-music {
-    --tag-color: #E0B0FF;  /* mauve */
+    --tag-color: var(--tag-music);
 }
 
 .log-left section a.tag-writing {
-    --tag-color: #fffacd;  /* lemonchiffon */
+    --tag-color: var(--tag-writing);
 }
 
 .log-left section a.tag-politics {
-    --tag-color: #78282B;  /* mahogany */
+    --tag-color: var(--tag-politics);
 }
 
 .log-left section a.tag-culture {
-    --tag-color: #80cbc4;  /* teal */
+    --tag-color: var(--tag-culture);
 }
 
 .log-left section a.tag-internet {
-    --tag-color: #81d4fa;  /* light blue */
+    --tag-color: var(--tag-internet);
 }
 
 .log-left section a.tag-life {
-    --tag-color: #FFD1CF;  /* lighter coral */
+    --tag-color: var(--tag-life);
 }
 
 .log-left section a.tag-other {
-    --tag-color: #F2F2E9;  /* piss grey */
+    --tag-color: var(--tag-other);
 }
+
 
 
 /* ===== LOG LAYOUT: board + side viewer ===== */
