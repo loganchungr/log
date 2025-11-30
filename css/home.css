@@ -234,6 +234,14 @@ section a:hover::before {
     margin-bottom: 0.75rem;
 }
 
+.log-viewer iframe {
+    width: 100%;
+    min-height: 60vh;
+    border: none;
+    display: block;
+    background: transparent;
+}
+
 /* entries inside viewer */
 .log-viewer #meta {
     display: flex;
