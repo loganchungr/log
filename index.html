@@ -51,14 +51,17 @@
   document.addEventListener('DOMContentLoaded', function () {
     const layout = document.querySelector('.log-layout');
     const viewer = document.getElementById('log-viewer');
-    const iframe = document.getElementById('log-iframe');
+    const iframe = document.getElementById('log-iframe');   // your viewer iframe
     const placeholder = viewer ? viewer.querySelector('.log-viewer-placeholder') : null;
     const left = document.querySelector('.log-left');
+    const listSection = left ? left.querySelector('section') : null;
 
-    if (!left || !iframe || !viewer) {
-      console.warn('Log layout, viewer, or iframe not found');
+    if (!left || !listSection || !iframe || !viewer) {
+      console.warn('Log layout elements not found');
       return;
     }
+
+    let activeLink = null;
 
     // Single delegated click handler for ALL links in .log-left
     left.addEventListener('click', function (e) {
@@ -71,34 +74,50 @@
       // Always load into the iframe; never navigate away
       e.preventDefault();
 
-      // (CSS now hides the placeholder when log-has-selection is present,
-      // but we keep this for immediate visual response.)
+      // Hide placeholder + show iframe area
       if (placeholder) {
         placeholder.style.display = 'none';
       }
-
-      iframe.src = href;
-
       if (layout) {
         layout.classList.add('log-has-selection');
       }
 
-      // On mobile: scroll the PAGE so the viewer sits just below the sticky strip
+      iframe.src = href;
+
+      // ---- 1) Update active marker ----
+      if (activeLink) {
+        activeLink.classList.remove('log-note-active');
+      }
+      link.classList.add('log-note-active');
+      activeLink = link;
+
+      // ---- 2) Scroll so this note becomes "first" in the strip/grid ----
+      const containerRect = listSection.getBoundingClientRect();
+      const noteRect = link.getBoundingClientRect();
+
       if (window.innerWidth < 600) {
-        const header = document.querySelector('.log-left');
-        const headerHeight = header ? header.getBoundingClientRect().height : 0;
+        // Mobile: horizontal strip → active note farthest LEFT
+        const offsetLeft = noteRect.left - containerRect.left + listSection.scrollLeft;
+        const targetLeft = Math.max(offsetLeft - 10, 0); // small padding
 
-        const rect = viewer.getBoundingClientRect();
-        const absoluteTop = window.scrollY + rect.top;
+        listSection.scrollTo({
+          left: targetLeft,
+          behavior: 'smooth'
+        });
+      } else {
+        // Desktop: vertical scroller → active note at the TOP
+        const offsetTop = noteRect.top - containerRect.top + listSection.scrollTop;
+        const targetTop = Math.max(offsetTop - 10, 0);
 
-        window.scrollTo({
-          top: absoluteTop - headerHeight - 8,  // small margin below the strip
+        listSection.scrollTo({
+          top: targetTop,
           behavior: 'smooth'
         });
       }
     });
   });
 </script>
+
 
 
 </html>
