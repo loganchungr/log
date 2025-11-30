@@ -118,6 +118,7 @@ header {
 section {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    padding-top:5px;
     overflow-y: scroll;
     max-height: 500px;
     align-items: flex-start;
