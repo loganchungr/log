@@ -213,8 +213,10 @@ section a:hover::before {
     display: block;
 }
 
+/* show viewer on mobile too (below the bar) */
 .log-right {
-    display: none; /* viewer hidden by default on small screens */
+    display: block;
+    margin-top: 12px;
 }
 
 /* viewer box */
@@ -284,6 +286,49 @@ section a:hover::before {
     font-size: 13px;
     line-height: 1.4;
 }
+
+/* Mobile-only: make the log list a horizontal bar */
+@media (max-width: 599px) {
+
+  /* make the list bar stick to the top and keep its own background */
+  .log-left {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    padding: 10px 10px 6px;
+    background-color: #ff948f; /* same as body background */
+  }
+
+  .log-left > h2 {
+    margin: 0 0 6px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  /* horizontal scroll strip */
+  .log-left > section {
+    display: flex;           /* override the grid */
+    flex-wrap: nowrap;
+    overflow-x: auto;        /* horizontal scroll */
+    overflow-y: hidden;      /* no vertical scroll here */
+    max-height: none;
+    gap: 10px;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch; /* smoother scrolling on iOS */
+  }
+
+  /* keep each entry as a little card, but treat them as horizontal chips */
+  .log-left > section a {
+    flex: 0 0 auto;          /* don't shrink; lay them out side by side */
+  }
+
+  /* let the viewer grow with the page instead of being capped on mobile */
+  .log-viewer {
+    max-height: none;
+  }
+}
+
 
 /* Mobile */
 @media (min-width: 600px) {
