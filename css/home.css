@@ -286,20 +286,7 @@ section a {
     line-height: 1.4;
 }
 
-/* Active note highlight */
-.log-left section a.log-note-active {
-    border: 2px dashed rgba(255, 148, 143, 1);
-  box-shadow:
-    0 0 0 2px rgba(0, 0, 0, 0.35),
-    0 6px 10px rgba(0, 0, 0, 0.25);
-  transform: translateY(-3px) rotate(0deg);
-  z-index: 2;
-}
 
-/* Optional: make the little corner border a bit stronger if you use ::before */
-.log-left section a.log-note-active::before {
-  border-width: 2px;
-}
 
 /* Mobile layout: horizontal strip, viewer in normal flow */
 @media (max-width: 599px) {
@@ -379,6 +366,16 @@ section a {
   border: none;
   display: block;
   background: transparent;
+}
+
+/* Active note highlight */
+.log-left section a.log-note-active {
+    border: 2px dashed rgba(255, 148, 143, 1);
+  box-shadow:
+    0 0 0 2px rgba(0, 0, 0, 0.35),
+    0 6px 10px rgba(0, 0, 0, 0.25);
+  transform: translateY(-3px) rotate(0deg);
+  z-index: 2;
 }
 
 
