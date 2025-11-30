@@ -55,8 +55,8 @@
     const placeholder = viewer ? viewer.querySelector('.log-viewer-placeholder') : null;
     const left = document.querySelector('.log-left');
 
-    if (!left || !iframe) {
-      console.warn('Log layout or iframe not found');
+    if (!left || !iframe || !viewer) {
+      console.warn('Log layout, viewer, or iframe not found');
       return;
     }
 
@@ -80,45 +80,21 @@
       if (layout) {
         layout.classList.add('log-has-selection');
       }
-        left.addEventListener('click', function (e) {
-  const link = e.target.closest('a[href]');
-  if (!link || !left.contains(link)) return;
 
-  const href = link.getAttribute('href');
-  if (!href) return;
+      // On mobile: scroll the PAGE so the viewer hits the top of the window
+      if (window.innerWidth < 600) {
+        const rect = viewer.getBoundingClientRect();
+        const absoluteTop = window.scrollY + rect.top;
 
-  // ALWAYS load into the iframe; never navigate away
-  e.preventDefault();
-
-  if (placeholder) {
-    placeholder.style.display = 'none';
-  }
-
-  iframe.src = href;
-
-  if (layout) {
-    layout.classList.add('log-has-selection');
-  }
-
-  // 🆕 On mobile: scroll the viewer to the top of the window
-  if (window.innerWidth < 600 && viewer) {
-    const header = document.querySelector('.log-left');
-    const headerHeight = header
-      ? header.getBoundingClientRect().height
-      : 0;
-
-    const rect = viewer.getBoundingClientRect();
-    const absoluteTop = window.scrollY + rect.top;
-
-    window.scrollTo({
-      top: absoluteTop - headerHeight - 8, // small margin
-      behavior: 'smooth'
-    });
-  }
-});
+        window.scrollTo({
+          top: absoluteTop - 8,   // tiny margin if you like
+          behavior: 'smooth'
+        });
+      }
     });
   });
 </script>
+
 
 
 
