@@ -218,17 +218,11 @@ section a {
 }
 
 /* viewer box */
-/*.log-viewer {
+.log-viewer {
     background-color: #fffbfa;
     border: 1px solid #969696;
     border-radius: 10px;
-    padding: 25px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-    max-height: 490px;
-    overflow: auto;
-    margin: 0;
-    padding: 0;
-}*/
+}
 
 .log-viewer-placeholder {
     font-size: 0.9rem;
