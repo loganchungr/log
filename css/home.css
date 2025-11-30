@@ -359,4 +359,13 @@ section a:hover::before {
     display: none;
 }
 
+.log-viewer iframe {
+  width: 100%;
+  min-height: 60vh;
+  border: none;
+  display: block;
+  background: transparent;
+}
+
+
 
