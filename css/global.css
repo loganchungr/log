@@ -8,10 +8,10 @@
 :root {
  --offwhite: #fffbfa;
  --note: lemonchiffon;
- --coral; #ff948f;
-  --bg: #fffbfa;
-  --fg: #000000;
-  --accent: #ff948f;
+ --coral: #ff948f;
+ --bg: #fffbfa;
+ --fg: #000000;
+ --accent: #ff948f;
 
   /* log tag colors */
   --tag-music:    #E0B0FF;  /* mauve */
