@@ -141,7 +141,7 @@ section a {
     text-align: center;
     font-size: 14px;
     width: 100px;
-    height: 120px;
+    height: 90px;
     background-color: var(--note);
     border-radius: 20px;
     transform: rotate(4deg);
@@ -239,7 +239,7 @@ section a {
 
 .log-viewer iframe {
     width: 100%;
-    min-height: 60vh;
+    min-height: calc(100vh / 1.5);
     border: none;
     display: block;
     background: transparent;
@@ -314,7 +314,8 @@ section a {
     overflow-x: auto;
     overflow-y: hidden;
     gap: 10px;
-    padding-bottom: 0;
+    padding-bottom: 0px;
+      padding-top: 4px;
     -webkit-overflow-scrolling: touch;
   }
 
