@@ -287,20 +287,8 @@ section a:hover::before {
     line-height: 1.4;
 }
 
-/* Mobile layout: horizontal strip + full-height viewer pane */
+/* Mobile layout: horizontal strip, viewer in normal flow */
 @media (max-width: 599px) {
-
-  html,
-  body {
-    height: 100%;
-  }
-
-  /* Whole log page: 2-row flex layout, exactly one viewport tall */
-  .log-layout {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
 
   /* Top horizontal bar of entries */
   .log-left {
@@ -309,11 +297,6 @@ section a:hover::before {
     z-index: 5;
     padding: 10px 10px 6px;
     background-color: #ff948f;
-
-    flex: 0 0 auto;
-    min-height: 56px;     /* readable */
-    max-height: 30vh;     /* doesn’t eat the whole screen */
-    overflow: hidden;
   }
 
   .log-left > h2 {
@@ -335,44 +318,7 @@ section a:hover::before {
   .log-left > section a {
     flex: 0 0 auto;             /* little sticky-note cards in a row */
   }
-
-  /* Bottom pane: viewer takes ALL remaining height */
-  .log-right {
-    flex: 1 1 auto;
-    min-height: 0;
-    margin-top: 0;
-    padding-top: 0;
-    display: flex;
-  }
-
-  .log-viewer {
-    flex: 1 1 auto;
-    min-height: 0;
-    max-height: none;           /* kill the global max-height cap */
-    overflow: hidden;           /* iframe scrolls, not the card */
-    display: flex;
-    flex-direction: column;
-  }
-
-  .log-viewer-placeholder {
-    flex: 0 0 auto;
-    margin-bottom: 0.75rem;
-  }
-
-  .log-viewer iframe {
-    flex: 1 1 auto;
-    min-height: 0;
-    width: 100%;
-    border: 0;
-    display: block;
-  }
-
-  .log-layout.log-has-selection .log-viewer-placeholder {
-    display: none;
-  }
 }
-
-
 
 
 /* Desktop */
@@ -393,8 +339,10 @@ section a:hover::before {
         top: 40px;
     }
 
+
     .log-layout.log-has-selection .log-viewer-placeholder {
         display: none;
     }
+    
 }
 
