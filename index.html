@@ -51,69 +51,81 @@
     const layout = document.querySelector('.log-layout');
     const viewer = document.getElementById('log-viewer');
     
-    function handleClick(e) {
-      const href = this.getAttribute('href');
-      if (!href) return;
-    
-      // Small screens: behave as usual
-      if (!mq.matches) return;
-    
-      e.preventDefault();
-    
-      if (href.endsWith('.md')) {
-        loadMarkdownEntry(href);
-      } else {
-        loadHtmlEntry(href); // your current behavior
-      }
-    }
+function handleClick(e) {
+  const href = this.getAttribute('href');
+  if (!href) return;
+
+  // We only want to hijack markdown links on wide screens.
+  // Everything else (HTML pages, external links) should behave normally.
+  if (!mq.matches || !href.endsWith('.md')) {
+    return; // let the browser handle it
+  }
+
+  e.preventDefault();
+  loadMarkdownEntry(href);
+}
+
     
     links.forEach(link => link.addEventListener('click', handleClick));
     
         function loadMarkdownEntry(href) {
-      fetch(href)
-        .then(res => {
-          if (!res.ok) throw new Error('HTTP ' + res.status);
-          return res.text();
-        })
-        .then(md => {
-          if (typeof marked === 'undefined') {
-            throw new Error('marked.js not loaded');
+  fetch(href)
+    .then(res => {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.text();
+    })
+    .then(md => {
+      if (typeof marked === 'undefined') {
+        throw new Error('marked.js not loaded');
+      }
+
+      const { dateText, isoDate, title, tags, body } = parseMarkdownEntry(md);
+      const bodyHtml = marked.parse(body);
+
+      // Header: date + title on a single "outlined" line
+      const headerHtml = `
+        <header class="entry-header">
+          ${
+            dateText
+              ? (
+                  isoDate
+                    ? `<time datetime="${isoDate}" class="entry-date">${dateText}</time>`
+                    : `<span class="entry-date">${dateText}</span>`
+                )
+              : ''
           }
+          ${title ? `<h1 class="entry-title">${title}</h1>` : ''}
+        </header>
+      `;
+
+      // Tags at the very bottom
+      const tagsHtml = tags.length
+        ? `<footer id="tags" class="entry-tags">
+             ${tags.map(t => `<span class="tag">${t}</span>`).join('')}
+           </footer>`
+        : '';
+
+      const articleHtml = `
+        <article>
+          ${headerHtml}
+          ${bodyHtml}
+          ${tagsHtml}
+        </article>
+      `;
+
+      viewer.innerHTML = articleHtml;
+      layout.classList.add('log-has-selection');
+      viewer.scrollTop = 0;
+    })
+    .catch(err => {
+      console.error('Error loading markdown entry:', err);
+      // Fallback: just navigate to the raw file if something breaks
+      window.location.href = href;
+    });
+}
+
     
-          const { dateText, isoDate, title, tags, body } = parseMarkdownEntry(md);
-          const bodyHtml = marked.parse(body);
-    
-          // Build tags HTML
-          const tagsHtml = tags.length
-            ? `<div id="tags">${tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>`
-            : '';
-    
-          const metaHtml = `
-            <div id="meta">
-              ${tagsHtml}
-              ${isoDate ? `<time datetime="${isoDate}">${dateText}</time>` : dateText}
-            </div>
-          `;
-    
-          const articleHtml = `
-            <article>
-              ${title ? `<h1>${title}</h1>` : ''}
-              ${bodyHtml}
-            </article>
-          `;
-    
-          viewer.innerHTML = metaHtml + articleHtml;
-          layout.classList.add('log-has-selection');
-          viewer.scrollTop = 0;
-        })
-        .catch(err => {
-          console.error('Error loading markdown entry:', err);
-          // Fallback: just navigate to the raw file if something breaks
-          window.location.href = href;
-        });
-    }
-    
-        function parseMarkdownEntry(mdText) {
+    function parseMarkdownEntry(mdText) {
       const lines = mdText.split('\n');
     
       let dateText = '';
