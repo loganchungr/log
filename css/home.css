@@ -376,11 +376,13 @@ section a:hover::before {
   }
 
   /* Viewer fills the rest of the viewport */
-  .log-right {
-    flex: 1 1 auto;
-    min-height: 0;              /* critical for flex children to shrink */
-    margin-top: 8px;
-  }
+.log-right {
+        flex: 1 1 auto;
+        min-height: 0;
+        max-height: calc(100vh - 300px);
+        margin-top: 0px;
+        padding-top: 0;
+}
 
   .log-viewer {
     height: 100%;
@@ -405,7 +407,7 @@ section a:hover::before {
 }
 
 
-/* Mobile */
+/* Desktop */
 @media (min-width: 600px) {
     .log-layout {
         display: grid;
