@@ -302,7 +302,6 @@ section a:hover::before {
   .log-left > h2 {
     margin: 0 0 6px;
     font-size: 0.75rem;
-    text-transform: uppercase;
     letter-spacing: 0.12em;
   }
 
@@ -326,6 +325,83 @@ section a:hover::before {
   /* let the viewer grow with the page instead of being capped on mobile */
   .log-viewer {
     max-height: none;
+  }
+}
+
+/* Mobile layout: horizontal strip + viewer that never exceeds viewport */
+@media (max-width: 599px) {
+
+  html,
+  body {
+    height: 100%;
+  }
+
+  /* Whole log page fills the viewport and stacks vertically */
+  .log-layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Top horizontal bar */
+  .log-left {
+    flex: 0 0 auto;
+    padding: 8px 10px 6px;
+    /* keep it readable but not huge */
+    min-height: 56px;
+    max-height: 30vh;
+    overflow: hidden;
+    background-color: #ff948f;
+  }
+
+  .log-left > h2 {
+    margin: 0 0 6px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  /* Horizontal scroll of entries */
+  .log-left > section {
+    display: flex;              /* override the global grid on mobile */
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 10px;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .log-left > section a {
+    flex: 0 0 auto;             /* little cards laid out side by side */
+  }
+
+  /* Viewer fills the rest of the viewport */
+  .log-right {
+    flex: 1 1 auto;
+    min-height: 0;              /* critical for flex children to shrink */
+    margin-top: 8px;
+  }
+
+  .log-viewer {
+    height: 100%;
+    max-height: none;           /* flex handles it now */
+    overflow: hidden;           /* iframe will scroll inside */
+    display: flex;
+    flex-direction: column;
+  }
+
+  .log-viewer iframe#log-iframe {
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    border: 0;
+    display: block;
+  }
+
+  /* Hide placeholder once something is loaded, on mobile too */
+  .log-layout.log-has-selection .log-viewer-placeholder {
+    display: none;
   }
 }
 
