@@ -165,12 +165,12 @@ section a {
 /* The little start in the corner of entry icons */
 .favorite::after {
     content: '*';
-    font-size: 36px;
+    font-size: 32px;
     display: block;
     position: absolute;
-    top: 90px;
-    right: 18px;
-    color: var(--coral);
+    top: 58px;
+    right: 1px;
+    color: #ff948f;
     z-index: 1;
 }
 
