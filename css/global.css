@@ -21,6 +21,7 @@
 /* Some global style resets */
 body {
   padding: 30px;
+  max-width: 1000px;
   margin: 0;
   font-family: 'Courier New';
   color: var(--);
