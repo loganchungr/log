@@ -22,12 +22,12 @@ h1, h2, h3, h4, p, ol, ul, li, a, figure, p:last-child, ul:last-child, ol:last-c
     word-break: break-word;
 }
 
-/*
+
  a:hover {
     border:2px dashed #ff948f;
     transform: scale(1.05);
 }
- */
+ 
 
 h1 {
     font-size: 150%;
@@ -146,14 +146,16 @@ section a {
     border: 4px solid transparent;
 }
 
-/* Default tag color for log notes (fallback: current lemonchiffon-ish note color) */
+/* LOG page: default + use tag color for card background */
 .log-left section a {
-    --tag-color: lemonchiffon; /* or #fffacd, or var(--note) if that’s your off-white */
+    --tag-color: var(--tag-writing);   /* fallback if no tag-* class */
+    background-color: var(--tag-color);
 }
 
-.log-left section a:hover {
+
+/*.log-left section a:hover {
     border-color: rgb(230, 226, 193);
-}
+}*/
 
 .log-left section a::before {
     /* keep all your existing positioning / size / border styles */
@@ -173,10 +175,7 @@ section a {
 }
 
 /* Entry icon palettes */
-/* default for any note with no tag-* class */
-.log-left section a {
-    --tag-color: var(--tag-writing); /* or whichever you want as fallback */
-}
+
 
 /* Tag → color mapping using global vars */
 .log-left section a.tag-music {
