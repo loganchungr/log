@@ -404,6 +404,33 @@ section a:hover::before {
   .log-layout.log-has-selection .log-viewer-placeholder {
     display: none;
   }
+
+  /* You've already sized aside.log-right; we just use that height. */
+  .log-right {
+    /* whatever height rules you already have are fine */
+    position: relative; /* helps with percentage heights inside */
+  }
+
+  .log-viewer {
+    height: 100%;        /* fill all of .log-right */
+    max-height: none;    /* override the global max-height: calc(100vh - 80px) */
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    /* keep your padding / borders / shadow as-is, or re-set them here if needed */
+  }
+
+  .log-viewer-placeholder {
+    flex: 0 0 auto;      /* natural height at the top */
+  }
+
+ .log-viewer iframe {
+    flex: 1 1 auto;   /* expand to fill vertical space */
+    min-height: 0;
+    width: 100%;
+    border: 0;
+    display: block;
+  }
 }
 
 
