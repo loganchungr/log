@@ -50,33 +50,42 @@
 <!-- JS ZONE JS ZONE -->
 
 <script>
-  const mq = window.matchMedia('(min-width: 600px)');
-  const links = document.querySelectorAll('.log-left section a[href]');
-  const layout = document.querySelector('.log-layout');
-  const viewer = document.getElementById('log-viewer');
-  const iframe = document.getElementById('log-iframe');
-  const placeholder = viewer.querySelector('.log-viewer-placeholder');
+  document.addEventListener('DOMContentLoaded', function () {
+    const layout = document.querySelector('.log-layout');
+    const viewer = document.getElementById('log-viewer');
+    const iframe = document.getElementById('log-iframe');
+    const placeholder = viewer ? viewer.querySelector('.log-viewer-placeholder') : null;
+    const left = document.querySelector('.log-left');
 
-  function handleClick(e) {
-    const href = this.getAttribute('href');
-    if (!href) return;
-
-    // On small screens: just behave like a normal link (open the doc)
-    if (!mq.matches) return;
-
-    // On desktop: load into the iframe instead
-    e.preventDefault();
-
-    if (placeholder) {
-      placeholder.style.display = 'none';
+    if (!left || !iframe) {
+      console.warn('Log layout or iframe not found');
+      return;
     }
 
-    iframe.src = href;
-    layout.classList.add('log-has-selection');
-  }
+    // Event delegation: catch clicks on ANY link inside .log-left
+    left.addEventListener('click', function (e) {
+      const link = e.target.closest('a[href]');
+      if (!link || !left.contains(link)) return;
 
-  links.forEach(link => link.addEventListener('click', handleClick));
+      const href = link.getAttribute('href');
+      if (!href) return;
+
+      // ALWAYS load into the iframe; never navigate away
+      e.preventDefault();
+
+      if (placeholder) {
+        placeholder.style.display = 'none';
+      }
+
+      iframe.src = href;
+
+      if (layout) {
+        layout.classList.add('log-has-selection');
+      }
+    });
+  });
 </script>
+
 
 
 </html>
