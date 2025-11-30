@@ -234,16 +234,6 @@ section a {
     margin: 0.75rem;
 }
 
-.log-viewer iframe {
-    width: 100%;
-    height: 490px;
-    /* border: 1px solid #969696; */
-    /*border-radius: 5px;*/
-    display: block;
-    background: transparent;
-    /* max-height: fit-content; */
-}
-
 /* entries inside viewer */
 .log-viewer #meta {
     display: flex;
@@ -294,7 +284,7 @@ section a {
 
   /* Top horizontal bar of entries */
   .log-left {
-    /*position: sticky;*/
+    position: sticky;
     top: 0;
     z-index: 5;
     padding: 0;
@@ -320,9 +310,18 @@ section a {
 
   .log-left > section a {
     flex: 0 0 auto;             /* little sticky-note cards in a row */
-
-  
   }
+
+  .log-viewer iframe {
+    width: 100%;
+    height: 72vh;
+    /* border: 1px solid #969696; */
+    /*border-radius: 5px;*/
+    display: block;
+    background: transparent;
+    /* max-height: fit-content; */
+   }
+
 }
 
 
@@ -343,6 +342,16 @@ section a {
         position: sticky;
         top: 40px;
         height; 490px;
+    }
+
+    .log-viewer iframe {
+    width: 100%;
+    height: 95vh;
+    /* border: 1px solid #969696; */
+    /*border-radius: 5px;*/
+    display: block;
+    background: transparent;
+    /* max-height: fit-content; */
     }
 
 
