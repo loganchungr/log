@@ -30,7 +30,7 @@
 
 /* Some global style resets */
 body {
-  padding: 1px;
+  padding: 0px;
   max-width: 1000px;
   margin: auto;
   font-family: 'Courier New';
