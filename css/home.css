@@ -120,9 +120,9 @@ header {
 
 /* Notebook subsections */
 section {
-    display: flow;
+    display: inline-grid;
     overflow-y: scroll;
-    max-height: 450px;
+    max-height: 480px;
     align-items: flex-start;
     gap: 10px;
     margin-bottom: 10px;
@@ -271,7 +271,7 @@ section a:hover::before {
 @media (min-width: 600px) {
     .log-layout {
         display: grid;
-        grid-template-columns: minmax(0, 250px) minmax(0, 1fr);
+        grid-template-columns: minmax(0, 150px) minmax(0, 1fr);
         column-gap: 10px;
         align-items: flex-start;
     }
