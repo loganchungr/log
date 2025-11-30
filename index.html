@@ -80,6 +80,42 @@
       if (layout) {
         layout.classList.add('log-has-selection');
       }
+        left.addEventListener('click', function (e) {
+  const link = e.target.closest('a[href]');
+  if (!link || !left.contains(link)) return;
+
+  const href = link.getAttribute('href');
+  if (!href) return;
+
+  // ALWAYS load into the iframe; never navigate away
+  e.preventDefault();
+
+  if (placeholder) {
+    placeholder.style.display = 'none';
+  }
+
+  iframe.src = href;
+
+  if (layout) {
+    layout.classList.add('log-has-selection');
+  }
+
+  // 🆕 On mobile: scroll the viewer to the top of the window
+  if (window.innerWidth < 600 && viewer) {
+    const header = document.querySelector('.log-left');
+    const headerHeight = header
+      ? header.getBoundingClientRect().height
+      : 0;
+
+    const rect = viewer.getBoundingClientRect();
+    const absoluteTop = window.scrollY + rect.top;
+
+    window.scrollTo({
+      top: absoluteTop - headerHeight - 8, // small margin
+      behavior: 'smooth'
+    });
+  }
+});
     });
   });
 </script>
