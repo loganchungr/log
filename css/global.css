@@ -6,14 +6,23 @@
 
 /* CSS Variables */
 :root {
-    --cursor: #000;
-    --pencil: #373737;
-    --bluetooth: #207fcd;
-    --flowers: #3d0b56;
-    --offwhite: #fffbfa;
-    --note: lemonchiffon;
-    --coral; #ff948f;
+ --offwhite: #fffbfa;
+ --note: lemonchiffon;
+ --coral; #ff948f;
+  --bg: #fffbfa;
+  --fg: #000000;
+  --accent: #ff948f;
+
+  /* log tag colors */
+  --tag-music:    #E0B0FF;  /* mauve */
+  --tag-writing:  #fffacd;  /* lemonchiffon */
+  --tag-politics: #78282B;  /* mahogany */
+  --tag-culture:  #80cbc4;  /* teal */
+  --tag-internet: #81d4fa;  /* light blue */
+  --tag-life:     #FFD1CF;  /* lighter coral */
+  --tag-other:    #F2F2E9;  /* piss grey */
 }
+
 
 
 /* Border box sizing fix */
