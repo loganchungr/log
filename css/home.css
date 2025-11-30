@@ -357,7 +357,6 @@ section a:hover::before {
   .log-left > h2 {
     margin: 0 0 6px;
     font-size: 0.75rem;
-    text-transform: uppercase;
     letter-spacing: 0.12em;
   }
 
