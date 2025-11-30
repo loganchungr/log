@@ -120,10 +120,11 @@ header {
 
 /* Notebook subsections */
 section {
-    display: inline-grid;
-    overflow-y: scroll;
-    max-height: 480px;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    overflow: scroll;
+    max-height: 75vh;
+    place-items: center;
     gap: 10px;
     margin-bottom: 10px;
 }
@@ -204,32 +205,37 @@ section a:hover::before {
 }
 
 
-/* ===== LOG LAYOUT: board + side viewer ===== */
-
-/* mobile-first: one column */
+/* mobile-first: stack left then viewer */
 .log-layout {
     display: block;
 }
 
 .log-right {
-    display: none; /* viewer hidden by default on small screens */
+    display: block;   /* show viewer on small screens too */
+    margin-top: 16px; /* a bit of space below the grid */
 }
 
-/* viewer box */
-.log-viewer {
-    background-color: #fffbfa;
-    border: .5px dashed #ff948f;
-    border-radius: 10px;
-    padding: 25px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-    max-height: calc(100vh - 80px);
-    overflow: auto;
-}
+/* desktop-ish: two columns + sticky viewer */
+@media (min-width: 600px) {
+    .log-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 150px) minmax(0, 1fr);
+        column-gap: 10px;
+        align-items: flex-start;
+    }
 
-.log-viewer-placeholder {
-    font-size: 0.9rem;
-    opacity: 0.7;
-    margin-bottom: 0.75rem;
+    .log-right {
+        margin-top: 0;
+    }
+
+    .log-viewer {
+        position: sticky;
+        top: 40px;
+    }
+
+    .log-layout.log-has-selection .log-viewer-placeholder {
+        display: none;
+    }
 }
 
 /* entries inside viewer */
