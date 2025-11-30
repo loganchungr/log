@@ -293,7 +293,7 @@ section a {
 
   /* Top horizontal bar of entries */
   .log-left {
-    position: sticky;
+    /*position: sticky;*/
     top: 0;
     z-index: 5;
     padding: 0;
