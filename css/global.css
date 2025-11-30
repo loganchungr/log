@@ -77,10 +77,5 @@ a {
     color: var(--flowers);
 }
 
-/* Mobile */
-@media(max-width: 600px) {
-    body {
-        padding: 18px;
-    }
-}
+
 
