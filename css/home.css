@@ -122,34 +122,32 @@ header {
 section {
     display: flex;
     overflow-x: scroll;
+    max-height: 200px;
     align-items: flex-start;
     gap: 10px;
+    margin-bottom:10px;
 }
 
 section a {
     position: relative;
+    aspect-ratio: 1 / 1;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    color: var(--pencil);
+    /* color: var(--pencil); */
     text-decoration: none;
     text-align: center;
-    font-size: 16px;
-    line-height: 18px;
-    max-width: 100px;
-}
-section a::before {
-    content: '';
-    display: block;
+    font-size: 14px;
     width: 100px;
-    height: 110px;
+    height: 120px;
     background-color: var(--note);
     border-radius: 20px;
     transform: rotate(4deg);
     margin-bottom: 20px;
     border: 4px solid transparent;
 }
+
 section a:hover::before {
     border-color: rgb(230, 226, 193);
 }
