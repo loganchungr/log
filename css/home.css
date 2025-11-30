@@ -218,7 +218,7 @@ section a:hover::before {
 /* viewer box */
 .log-viewer {
     background-color: #fffbfa;
-    border: 1px dashed #ff948f;
+    border: .5px dashed #ff948f;
     border-radius: 10px;
     padding: 25px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
