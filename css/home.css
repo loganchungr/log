@@ -146,8 +146,18 @@ section a {
     border: 4px solid transparent;
 }
 
+/* Default tag color for log notes (fallback: current lemonchiffon-ish note color) */
+.log-left section a {
+    --tag-color: lemonchiffon; /* or #fffacd, or var(--note) if that’s your off-white */
+}
+
 .log-left section a:hover {
     border-color: rgb(230, 226, 193);
+}
+
+.log-left section a::before {
+    /* keep all your existing positioning / size / border styles */
+    background-color: var(--tag-color);
 }
 
 /* The little start in the corner of entry icons */
@@ -163,42 +173,33 @@ section a {
 }
 
 /* Entry icon palettes */
-.emo::before {
-    background-color: hsl(208, 100%, 85%);
+/* Tag → color mapping for log note icons */
+.log-left section a.tag-music {
+    --tag-color: #E0B0FF;  /* mauve */
 }
-.emo:hover::before {
-    border-color: rgb(141, 179, 189);
+
+.log-left section a.tag-writing {
+    --tag-color: #fffacd;  /* lemonchiffon */
 }
-.jacaranda::before {
-    background-color: hsl(269, 100%, 85%);
+
+.log-left section a.tag-politics {
+    --tag-color: #78282B;  /* mahogany */
 }
-.jacaranda:hover::before {
-    border-color: rgb(192, 142, 192);
+
+.log-left section a.tag-culture {
+    --tag-color: #80cbc4;  /* teal */
 }
-.jacaranda::after {
-    color: rgb(140, 26, 140);
+
+.log-left section a.tag-internet {
+    --tag-color: #81d4fa;  /* light blue */
 }
-.fold::before {
-    background-color: hsl(115, 100%, 85%);
+
+.log-left section a.tag-life {
+    --tag-color: #FFD1CF;  /* lighter coral */
 }
-.fold:hover::before {
-    border-color: rgb(158, 192, 142);
-}
-.fold::after {
-    color: rgb(26, 140, 39);
-}
-.about::before {
-    background-image: url('../images/avatar.jpg');
-    background-size: cover;
-}
-.about:hover::before {
-    border-color: rgb(52, 89, 52);
-}
-.contact::before {
-    background-color: #fff;
-}
-.contact:hover::before {
-    border-color: #c6c6c6;
+
+.log-left section a.tag-other {
+    --tag-color: #F2F2E9;  /* piss grey */
 }
 
 
