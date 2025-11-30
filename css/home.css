@@ -149,7 +149,7 @@ section a {
     border: 4px solid transparent;
 }
 
-section a:hover::before {
+section a:hover: {
     border-color: rgb(230, 226, 193);
 }
 
