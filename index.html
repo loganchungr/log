@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/home.css">
 </head>
+    
 <body>
   <main class="log-layout">
     <!-- LEFT: existing sticky board -->
@@ -36,155 +37,10 @@
       </div>
     </aside>
   </main>
-
+</body>
 
 <!-- JS ZONE JS ZONE -->
 
-<!-- Markdown parser -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-<!-- Layout activator -->
-
-<script>
-     const mq = window.matchMedia('(min-width: 600px)');
-    const links = document.querySelectorAll('.log-left section a[href]');
-    const layout = document.querySelector('.log-layout');
-    const viewer = document.getElementById('log-viewer');
-    
-function handleClick(e) {
-  const href = this.getAttribute('href');
-  if (!href) return;
-
-  // We only want to hijack markdown links on wide screens.
-  // Everything else (HTML pages, external links) should behave normally.
-  if (!mq.matches || !href.endsWith('.md')) {
-    return; // let the browser handle it
-  }
-
-  e.preventDefault();
-  loadMarkdownEntry(href);
-}
-
-    
-    links.forEach(link => link.addEventListener('click', handleClick));
-    
-        function loadMarkdownEntry(href) {
-  fetch(href)
-    .then(res => {
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      return res.text();
-    })
-    .then(md => {
-      if (typeof marked === 'undefined') {
-        throw new Error('marked.js not loaded');
-      }
-
-      const { dateText, isoDate, title, tags, body } = parseMarkdownEntry(md);
-      const bodyHtml = marked.parse(body);
-
-      // Header: date + title on a single "outlined" line
-      const headerHtml = `
-        <header class="entry-header">
-          ${
-            dateText
-              ? (
-                  isoDate
-                    ? `<time datetime="${isoDate}" class="entry-date">${dateText}</time>`
-                    : `<span class="entry-date">${dateText}</span>`
-                )
-              : ''
-          }
-          ${title ? `<h1 class="entry-title">${title}</h1>` : ''}
-        </header>
-      `;
-
-      // Tags at the very bottom
-      const tagsHtml = tags.length
-        ? `<footer id="tags" class="entry-tags">
-             ${tags.map(t => `<span class="tag">${t}</span>`).join('')}
-           </footer>`
-        : '';
-
-      const articleHtml = `
-        <article>
-          ${headerHtml}
-          ${bodyHtml}
-          ${tagsHtml}
-        </article>
-      `;
-
-      viewer.innerHTML = articleHtml;
-      layout.classList.add('log-has-selection');
-      viewer.scrollTop = 0;
-    })
-    .catch(err => {
-      console.error('Error loading markdown entry:', err);
-      // Fallback: just navigate to the raw file if something breaks
-      window.location.href = href;
-    });
-}
-
-    
-    function parseMarkdownEntry(mdText) {
-      const lines = mdText.split('\n');
-    
-      let dateText = '';
-      let isoDate = '';
-      let title = '';
-      let tags = [];
-      let bodyStartIndex = 0;
-    
-      // 1) First non-empty line: ### **yyyy-mm-dd**
-      let i = 0;
-      while (i < lines.length && !lines[i].trim()) i++;
-      if (i < lines.length) {
-        const line = lines[i].trim();
-        // Strip Markdown decoration and pull out the date label
-        // e.g. "### **2025-11-28**"
-        const dateLabel = line
-          .replace(/^#+\s*/, '')      // remove leading ### / #
-          .replace(/^\*\*/, '')       // remove starting **
-          .replace(/\*\*$/, '')       // remove ending **
-          .trim();
-        dateText = dateLabel;
-    
-        // Try to extract ISO date (yyyy-mm-dd) from that line
-        const m = dateLabel.match(/(\d{4}-\d{2}-\d{2})/);
-        if (m) isoDate = m[1];
-    
-        i++;
-      }
-    
-      // 2) Next non-empty line: # **title**
-      while (i < lines.length && !lines[i].trim()) i++;
-      if (i < lines.length) {
-        const line = lines[i].trim();
-        const titleLabel = line
-          .replace(/^#+\s*/, '')
-          .replace(/^\*\*/, '')
-          .replace(/\*\*$/, '')
-          .trim();
-        title = titleLabel;
-        i++;
-      }
-    
-      // 3) Next non-empty line starting with "Tags:"
-      while (i < lines.length && !lines[i].trim()) i++;
-      if (i < lines.length) {
-        const line = lines[i].trim();
-        if (/^tags:/i.test(line)) {
-          const tagPart = line.replace(/^tags:/i, '').trim();
-          tags = tagPart.split(',').map(t => t.trim()).filter(Boolean);
-          i++;
-        }
-      }
-    
-      // 4) Body is everything after that
-      const body = lines.slice(i).join('\n').trim();
-    
-      return { dateText, isoDate, title, tags, body };
-    }
-
-</script>
 
 </html>
