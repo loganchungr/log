@@ -120,9 +120,10 @@ header {
 
 /* Notebook subsections */
 section {
-    display: inline-grid;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     overflow-y: scroll;
-    max-height: 480px;
+    max-height: 80vh;
     align-items: flex-start;
     gap: 10px;
     margin-bottom: 10px;
