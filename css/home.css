@@ -317,6 +317,8 @@ section a:hover::before {
 
   .log-left > section a {
     flex: 0 0 auto;             /* little sticky-note cards in a row */
+
+  
   }
 }
 
@@ -345,4 +347,16 @@ section a:hover::before {
     }
     
 }
+
+/* Hide placeholder once something is loaded (all viewports) */
+.log-layout.log-has-selection .log-viewer-placeholder {
+    display: none;
+}
+
+/* Keep the iframe hidden until an entry is selected,
+   so the empty viewer can be small */
+.log-layout:not(.log-has-selection) .log-viewer iframe {
+    display: none;
+}
+
 
