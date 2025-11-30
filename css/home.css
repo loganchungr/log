@@ -290,68 +290,30 @@ section a:hover::before {
 /* Mobile-only: make the log list a horizontal bar */
 @media (max-width: 599px) {
 
-  /* make the list bar stick to the top and keep its own background */
-  .log-left {
-    position: sticky;
-    top: 0;
-    z-index: 5;
-    padding: 10px 10px 6px;
-    background-color: #ff948f; /* same as body background */
-  }
-
-  .log-left > h2 {
-    margin: 0 0 6px;
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
-  }
-
-  /* horizontal scroll strip */
-  .log-left > section {
-    display: flex;           /* override the grid */
-    flex-wrap: nowrap;
-    overflow-x: auto;        /* horizontal scroll */
-    overflow-y: hidden;      /* no vertical scroll here */
-    max-height: none;
-    gap: 10px;
-    padding-bottom: 6px;
-    -webkit-overflow-scrolling: touch; /* smoother scrolling on iOS */
-  }
-
-  /* keep each entry as a little card, but treat them as horizontal chips */
-  .log-left > section a {
-    flex: 0 0 auto;          /* don't shrink; lay them out side by side */
-  }
-
-  /* let the viewer grow with the page instead of being capped on mobile */
-  .log-viewer {
-    max-height: none;
-  }
-}
-
-/* Mobile layout: horizontal strip + viewer that never exceeds viewport */
-@media (max-width: 599px) {
-
   html,
   body {
     height: 100%;
   }
 
-  /* Whole log page fills the viewport and stacks vertically */
+  /* Whole log page: 2-row flex layout, exactly one viewport tall */
   .log-layout {
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
   }
 
-  /* Top horizontal bar */
+  /* Top horizontal bar of entries */
   .log-left {
-    flex: 0 0 auto;
-    padding: 8px 10px 6px;
-    /* keep it readable but not huge */
-    min-height: 56px;
-    max-height: 30vh;
-    overflow: hidden;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    padding: 10px 10px 6px;
     background-color: #ff948f;
+
+    flex: 0 0 auto;
+    min-height: 56px;     /* readable */
+    max-height: 30vh;     /* doesn’t eat the whole screen */
+    overflow: hidden;
   }
 
   .log-left > h2 {
@@ -360,9 +322,8 @@ section a:hover::before {
     letter-spacing: 0.12em;
   }
 
-  /* Horizontal scroll of entries */
   .log-left > section {
-    display: flex;              /* override the global grid on mobile */
+    display: flex;              /* horizontal strip */
     flex-wrap: nowrap;
     overflow-x: auto;
     overflow-y: hidden;
@@ -372,27 +333,33 @@ section a:hover::before {
   }
 
   .log-left > section a {
-    flex: 0 0 auto;             /* little cards laid out side by side */
+    flex: 0 0 auto;             /* little sticky-note cards in a row */
   }
 
-  /* Viewer fills the rest of the viewport */
-.log-right {
-        flex: 1 1 auto;
-        min-height: 0;
-        max-height: calc(100vh - 300px);
-        margin-top: 0px;
-        padding-top: 0;
-}
+  /* Bottom pane: viewer takes ALL remaining height */
+  .log-right {
+    flex: 1 1 auto;
+    min-height: 0;
+    margin-top: 0;
+    padding-top: 0;
+    display: flex;
+  }
 
   .log-viewer {
-    height: 100%;
-    max-height: none;           /* flex handles it now */
-    overflow: hidden;           /* iframe will scroll inside */
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: none;           /* kill the global max-height cap */
+    overflow: hidden;           /* iframe scrolls, not the card */
     display: flex;
     flex-direction: column;
   }
 
-  .log-viewer iframe#log-iframe {
+  .log-viewer-placeholder {
+    flex: 0 0 auto;
+    margin-bottom: 0.75rem;
+  }
+
+  .log-viewer iframe {
     flex: 1 1 auto;
     min-height: 0;
     width: 100%;
@@ -400,38 +367,11 @@ section a:hover::before {
     display: block;
   }
 
-  /* Hide placeholder once something is loaded, on mobile too */
   .log-layout.log-has-selection .log-viewer-placeholder {
     display: none;
   }
-
-  /* You've already sized aside.log-right; we just use that height. */
-  .log-right {
-    /* whatever height rules you already have are fine */
-    position: relative; /* helps with percentage heights inside */
-  }
-
-  .log-viewer {
-    height: 100%;        /* fill all of .log-right */
-    max-height: none;    /* override the global max-height: calc(100vh - 80px) */
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    /* keep your padding / borders / shadow as-is, or re-set them here if needed */
-  }
-
-  .log-viewer-placeholder {
-    flex: 0 0 auto;      /* natural height at the top */
-  }
-
- .log-viewer iframe {
-    flex: 1 1 auto;   /* expand to fill vertical space */
-    min-height: 0;
-    width: 100%;
-    border: 0;
-    display: block;
-  }
 }
+
 
 
 /* Desktop */
