@@ -287,7 +287,7 @@ section a:hover::before {
     line-height: 1.4;
 }
 
-/* Mobile-only: make the log list a horizontal bar */
+/* Mobile layout: horizontal strip + full-height viewer pane */
 @media (max-width: 599px) {
 
   html,
@@ -371,6 +371,7 @@ section a:hover::before {
     display: none;
   }
 }
+
 
 
 
