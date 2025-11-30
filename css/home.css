@@ -339,7 +339,7 @@ section a:hover::before {
   /* Bottom pane: viewer takes ALL remaining height */
   .log-right {
     flex: 1 1 auto;
-    max-height: calc(100vh - 300px);
+    min-height: 0;
     margin-top: 0;
     padding-top: 0;
     display: flex;
