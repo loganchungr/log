@@ -120,12 +120,12 @@ header {
 
 /* Notebook subsections */
 section {
-    display: flex;
-    overflow-x: scroll;
-    max-height: 200px;
+    display: flow;
+    overflow-y: scroll;
+    max-height: 450px;
     align-items: flex-start;
     gap: 10px;
-    margin-bottom:10px;
+    margin-bottom: 10px;
 }
 
 section a {
