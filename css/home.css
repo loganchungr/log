@@ -122,10 +122,9 @@ section {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     overflow-y: scroll;
-    max-height: 80vh;
+    max-height: 500px;
     align-items: flex-start;
     gap: 10px;
-    margin-bottom: 10px;
     place-items: center;
 }
 
@@ -219,17 +218,17 @@ section a {
 }
 
 /* viewer box */
-.log-viewer {
+/*.log-viewer {
     background-color: #fffbfa;
     border: 1px solid #969696;
     border-radius: 10px;
     padding: 25px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-    max-height: none;
+    max-height: 490px;
     overflow: auto;
     margin: 0;
     padding: 0;
-}
+}*/
 
 .log-viewer-placeholder {
     font-size: 0.9rem;
@@ -239,10 +238,12 @@ section a {
 
 .log-viewer iframe {
     width: 100%;
-    min-height: calc(100vh / 1.5);
-    border: none;
+    height: 490px;
+    /* border: 1px solid #969696; */
+    border-radius: 5px;
     display: block;
     background: transparent;
+    /* max-height: fit-content; */
 }
 
 /* entries inside viewer */
@@ -363,13 +364,13 @@ section a {
     display: none;
 }
 
-.log-viewer iframe {
+/*.log-viewer iframe {
   width: 100%;
   min-height: 60vh;
   border: none;
   display: block;
   background: transparent;
-}
+}*/
 
 /* Active note highlight */
 .log-left section a.log-note-active {
