@@ -15,6 +15,7 @@
     body {
       margin: 0;
       padding: 0;
+      background: #fffafb;
     }
 
     .grid-wrapper {
@@ -30,13 +31,14 @@
     }
 
     .photo-item {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 1 / 1;   /* keep it square */
-      overflow: hidden;
-      padding: 0;
-      border: none;
-      background: none;
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        padding: 0;
+        border: .5px solid #969696;
+        border-radius: 5px;
+        background: none;
     }
 
     .photo-item img {
@@ -46,8 +48,8 @@
       display: block;
     }
     
-    .photo-item a:hover { 
-      border: 0.5px dashed #ff948fb;
+    .photo-item img:hover { 
+      border: 1x dashed #ff948fb;
       transform: scale(1.05);
     }
     
